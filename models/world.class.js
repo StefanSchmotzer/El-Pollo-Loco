@@ -7,7 +7,7 @@ class World {
         new Chicken(),
         new Chicken(),
 
-        
+
         new Chickensmall(),
         new Chickensmall(),
         new Chickensmall(),
@@ -33,7 +33,7 @@ class World {
 
 
 
-    constructor(canvas){
+    constructor(canvas) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.draw();
@@ -52,12 +52,12 @@ class World {
 
 
         let self = this;
-        requestAnimationFrame(function() {
+        requestAnimationFrame(function () {
             self.draw();
         });
     }
 
-    addObjectsToMap(objects){
+    addObjectsToMap(objects) {
         objects.forEach(o => {
             this.addToMap(o);
         });
