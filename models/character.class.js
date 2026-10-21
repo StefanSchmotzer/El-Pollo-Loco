@@ -31,7 +31,7 @@ class Character extends MovableObject {
         'assets/img/2_character_pepe/1_idle/long_idle/I-20.png'
     ];
 
-    PEPE_WALKING = [
+    IMAGES_WALKING = [
         'assets/img/2_character_pepe/2_walk/W-21.png',
         'assets/img/2_character_pepe/2_walk/W-22.png',
         'assets/img/2_character_pepe/2_walk/W-23.png',
@@ -74,8 +74,8 @@ class Character extends MovableObject {
 
 
     constructor() {
-        super().loadImage('assets/img/2_character_pepe/1_idle/idle/I-1.png');
-        this.loadImages(this.PEPE_WALKING)
+        super().loadImage(this.IMAGES_WALKING[0]);
+        this.loadImages(this.IMAGES_WALKING)
 
         this.animate();
     }
@@ -99,24 +99,12 @@ class Character extends MovableObject {
 
             if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT ) {
 
-
-                let i = this.currentImage % this.PEPE_WALKING.length;
-                let path = this.PEPE_WALKING[i];
-                this.img = this.imageCache[path];
-                this.currentImage++;
+                this.playAnimation(this.IMAGES_WALKING);
             };
      
 
-        
-
-
-
-        //    let i = this.currentImage % this.PEPE_IDLE.length;
-         //   let path = this.PEPE_IDLE[i];
-         
-         //   this.img = this.imageCache[path];
-         //    this.currentImage++;
-        }, 50);
+    
+        }, 75);
     }
 
 
