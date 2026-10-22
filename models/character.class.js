@@ -68,15 +68,19 @@ class Character extends MovableObject {
         'assets/img/2_character_pepe/5_dead/D-56.png',
         'assets/img/2_character_pepe/5_dead/D-57.png',
         'assets/img/2_character_pepe/5_dead/D-58.png'
-
     ];
+
     world;
 
 
     constructor() {
-        super().loadImage(this.IMAGES_WALKING[0]);
+        super().loadImage(this.IMAGES_IDLE[0]);
+        this.loadImages(this.IMAGES_IDLE);
+        this.loadImages(this.IMAGES_LONG_IDLE);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
+        this.loadImages(this.IMAGES_HURTING);
+        this.loadImages(this.IMAGES_DEAD);
         this.applyGravity();
         this.animate();
     }
@@ -102,7 +106,11 @@ class Character extends MovableObject {
         }, 2000 / 60);
 
         setInterval(() => {
-
+            if(this.isDead()) {
+                this.playAnimation(this.IMAGES_DEAD);
+            } else if(this.isHurt()) {
+                this.playAnimation(this.IMAGES_HURTING);
+            }
             if(this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
             } else {
