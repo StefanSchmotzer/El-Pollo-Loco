@@ -1,8 +1,6 @@
 class Cloud extends MovableObject {
 
 IMAGES_WALKING = [
-      'assets/img/5_background/layers/4_clouds/1.png',
-      'assets/img/5_background/layers/4_clouds/2.png',
       'assets/img/5_background/layers/4_clouds/1.png'
    ];
 
@@ -15,7 +13,7 @@ IMAGES_WALKING = [
         this.x = 0 + Math.random() * 4000;
         this.width = 250 + Math.random() * 450;
         this.height = 150 + Math.random() * 300;
-        this.speed = 0.01 + Math.random() * 0.5;
+        this.speed = 0.01 + Math.random() * 0.2;
         this.animate();
    }
 
@@ -23,6 +21,9 @@ IMAGES_WALKING = [
 
     animate() {
         this.moveLeft();
+        setInterval(() => {
+            this.moveLeft();
+        }, 1000 / 60);
     }
 
 
