@@ -2,7 +2,7 @@ class Character extends MovableObject {
 
     height = 350;
     width = 150;
-    y = 0;
+    y = -500;
     speed = 10;
 
     IMAGES_IDLE = [
@@ -75,7 +75,8 @@ class Character extends MovableObject {
 
     constructor() {
         super().loadImage(this.IMAGES_WALKING[0]);
-        this.loadImages(this.IMAGES_WALKING)
+        this.loadImages(this.IMAGES_WALKING);
+        this.loadImages(this.IMAGES_JUMPING);
         this.applyGravity();
         this.animate();
     }
@@ -84,31 +85,37 @@ class Character extends MovableObject {
 
         setInterval(() => {
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-                this.x += this.speed;
+                this.moveRight();
                 this.otherDirection = false;
-            }
+            } 
 
             if (this.world.keyboard.LEFT && this.x > -500) {
-                this.x -= this.speed;
-                this.otherDirection = true;
+                this.moveLeft();
+                this.otherDirection = true
             }
+            
+            if(this.world.keyboard.SPACE && !this.isAboveGround()) {
+                this.jump();
+            }
+
             this.world.camera_x = -this.x + 100;
         }, 2000 / 60);
 
         setInterval(() => {
 
-            if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT ) {
+            if(this.isAboveGround()) {
+                this.playAnimation(this.IMAGES_JUMPING);
+            } else {
 
-                this.playAnimation(this.IMAGES_WALKING);
+                if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT ) {
+
+                    this.playAnimation(this.IMAGES_WALKING);
+                };
             };
-     
-
-    
+        
         }, 75);
     }
-
-
-
-
-    jump(){}
+    jump() {
+        this.speedY = 30;
+    }
 }

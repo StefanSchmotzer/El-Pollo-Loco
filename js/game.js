@@ -25,7 +25,7 @@ document.addEventListener('keydown', (event) => {
     if (key == "ArrowDown") {
         keyboard.DOWN - true;
     }
-    if (key == "Space") {
+    if (key == " ") {
         keyboard.SPACE = true;
     }
 });
@@ -42,9 +42,9 @@ document.addEventListener('keyup', (event) => {
         keyboard.UP = false;
     }
     if (key == "ArrowDown") {
-        keyboard.DOWN - false;
+        keyboard.DOWN = false;
     }
-    if (key == "Space") {
+    if (key == " ") {
         keyboard.SPACE = false;
     }
 
