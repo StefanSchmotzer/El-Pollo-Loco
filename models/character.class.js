@@ -5,7 +5,7 @@ class Character extends MovableObject {
     y = 80;
     speed = 10;
 
-    PEPE_IDLE = [
+    IMAGES_IDLE = [
         'assets/img/2_character_pepe/1_idle/idle/I-1.png',
         'assets/img/2_character_pepe/1_idle/idle/I-2.png',
         'assets/img/2_character_pepe/1_idle/idle/I-3.png',
@@ -18,7 +18,7 @@ class Character extends MovableObject {
         'assets/img/2_character_pepe/1_idle/idle/I-10.png',
     ];
 
-    PEPE_LONG_IDLE = [
+    IMAGES_LONG_IDLE = [
         'assets/img/2_character_pepe/1_idle/long_idle/I-11.png',
         'assets/img/2_character_pepe/1_idle/long_idle/I-12.png',
         'assets/img/2_character_pepe/1_idle/long_idle/I-13.png',
@@ -40,7 +40,7 @@ class Character extends MovableObject {
         'assets/img/2_character_pepe/2_walk/W-26.png'
     ];
 
-    PEPE_JUMPING = [
+    IMAGES_JUMPING = [
         'assets/img/2_character_pepe/3_jump/J-31.png',
         'assets/img/2_character_pepe/3_jump/J-32.png',
         'assets/img/2_character_pepe/3_jump/J-33.png',
@@ -52,14 +52,14 @@ class Character extends MovableObject {
         'assets/img/2_character_pepe/3_jump/J-39.png'
     ];
 
-    PEPE_HURTING = [
+    IMAGES_HURTING = [
         'assets/img/2_character_pepe/4_hurt/H-41.png',
         'assets/img/2_character_pepe/4_hurt/H-42.png',
         'assets/img/2_character_pepe/4_hurt/H-43.png'
 
     ];
 
-    PEPE_DEAD = [
+    IMAGES_DEAD = [
         'assets/img/2_character_pepe/5_dead/D-51.png',
         'assets/img/2_character_pepe/5_dead/D-52.png',
         'assets/img/2_character_pepe/5_dead/D-53.png',
