@@ -7,7 +7,7 @@ class StatusBar extends DrawableObject {
         'assets/img/7_statusbars/1_statusbar/2_statusbar_health/orange/60.png',
         'assets/img/7_statusbars/1_statusbar/2_statusbar_health/orange/80.png',
         'assets/img/7_statusbars/1_statusbar/2_statusbar_health/orange/100.png'
-    ]
+    ];
 
     IMAGES_BOTTLE = [
         'assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/green/0.png',
@@ -16,16 +16,16 @@ class StatusBar extends DrawableObject {
         'assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/green/60.png',
         'assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/green/80.png',
         'assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/green/100.png'
-    ]
+    ];
 
-    IMAGES_COIN = [
+    IMAGES_COINS = [
         'assets/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/0.png',
         'assets/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/20.png',
         'assets/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/40.png',
         'assets/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/60.png',
         'assets/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/80.png',
         'assets/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/100.png'
-    ]
+    ];
 
     IMAGES_ENDBOSS = [
         'assets/img/7_statusbars/2_statusbar_endboss/orange/orange0.png',
@@ -34,40 +34,94 @@ class StatusBar extends DrawableObject {
         'assets/img/7_statusbars/2_statusbar_endboss/orange/orange60.png',
         'assets/img/7_statusbars/2_statusbar_endboss/orange/orange80.png',
         'assets/img/7_statusbars/2_statusbar_endboss/orange/orange100.png'
-    ]
+    ];
 
     percentage = 100;
 
-    constructor(){
-        super();
-        this.loadImages(this.IMAGES_HEALTH);
-        this.x = 25;
-        this.y = 0;
-        this.width = 150;
-        this.height = 50;
-        this.setPercentage(100);
+  /**
+   * Creates a new Statusbar instance
+   * @param {string} type - Type of statusbar ("health", "coins", "bottle", "endboss")
+   */
+  constructor(type = "health") {
+    super();
+    this.type = type;
+    this.percentage = type === "health" ? 100 : 0;
+    this.x = 25;
+    this.y = 0;
+    this.width = 150;
+    this.height = 50;
+    if (type === "health") {
+      this.loadImage(this.IMAGES_HEALTH[5]);
+      this.loadImages(this.IMAGES_HEALTH);
+    } else if (type === "coins") {
+      this.loadImage(this.IMAGES_COINS[0]);
+      this.loadImages(this.IMAGES_COINS);
+    } else if (type === "bottle") {
+      this.loadImage(this.IMAGES_BOTTLE[0]);
+      this.loadImages(this.IMAGES_BOTTLE);
+    } else if (type === "endboss") {
+      this.percentage = 100;
+      this.width = 230;
+      this.height = 55;
+      this.loadImage(this.IMAGES_ENDBOSS[5]);
+      this.loadImages(this.IMAGES_ENDBOSS);
     }
+  }
 
-    setPercentage(percentage) {
-        this.percentage = percentage;
-        let path = this.IMAGES_HEALTH[this.resolveImageIndex()];
-        this.img = this.imageCache[path];
+  /**
+   * Sets the percentage and updates the image
+   * @param {number} percentage - Percentage value (0-100)
+   */
+  setPercentage(percentage) {
+    this.percentage = percentage;
+    if (this.type === "health") {
+      this.img = this.imageCache[this.IMAGES_HEALTH[this.resolveImageIndex()]];
+    } else if (this.type === "coins") {
+      this.img = this.imageCache[this.IMAGES_COINS[this.resolveImageIndex()]];
+    } else if (this.type === "bottle") {
+      this.img = this.imageCache[this.IMAGES_BOTTLE[this.resolveImageIndex()]];
+    } else if (this.type === "endboss") {
+      this.img = this.imageCache[this.IMAGES_ENDBOSS[this.resolveImageIndex()]];
     }
+  }
 
-    resolveImageIndex() {
-        if (this.percentage == 100) {
-            return 5;
-        } else if (this.percentage > 80) {
-            return 4;
-        } else if (this.percentage > 60) {
-            return 3;
-        } else if (this.percentage > 40) {
-            return 2;
-        } else if (this.percentage > 20) {
-            return 1;
-        } else {
-            return 0;
-        }
+  /**
+   * Resolves the image index based on percentage and statusbar type
+   * Routes to appropriate index calculation method based on statusbar type
+   * @returns {number} Image index (0-5) corresponding to percentage level
+   */
+  resolveImageIndex() {
+    if (this.type === "health" || this.type === "endboss") {
+      return this.resolveHealthOrEndbossIndex();
+    } else {
+      return this.resolveCoinsOrBottlesIndex();
     }
+  }
+
+  /**
+   * Resolves image index for health or endboss statusbars
+   * @returns {number} Image index
+   */
+  resolveHealthOrEndbossIndex() {
+    if (this.percentage == 100) return 5;
+    if (this.percentage == 80) return 4;
+    if (this.percentage == 60) return 3;
+    if (this.percentage == 40) return 2;
+    if (this.percentage == 20) return 1;
+    return 0;
+  }
+
+  /**
+   * Resolves image index for coins or bottles statusbars
+   * @returns {number} Image index
+   */
+  resolveCoinsOrBottlesIndex() {
+    if (this.percentage == 100) return 5;
+    if (this.percentage == 80) return 4;
+    if (this.percentage == 60) return 3;
+    if (this.percentage == 40) return 2;
+    if (this.percentage == 20) return 1;
+    return 0;
+  }
 
 }

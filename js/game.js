@@ -28,6 +28,9 @@ document.addEventListener('keydown', (event) => {
     if (key == " ") {
         keyboard.SPACE = true;
     }
+    if (key == "x") {
+        keyboard.X = true;
+    }
 });
 
 document.addEventListener('keyup', (event) => {
@@ -46,6 +49,9 @@ document.addEventListener('keyup', (event) => {
     }
     if (key == " ") {
         keyboard.SPACE = false;
+    }
+    if (key == "x") {
+        keyboard.X = false;
     }
 
     console.log(event);
