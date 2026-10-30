@@ -1,127 +1,73 @@
 class StatusBar extends DrawableObject {
+  height = 40;
+  width = 150;
+  percentage = 0;
 
-    IMAGES_HEALTH = [
-        'assets/img/7_statusbars/1_statusbar/2_statusbar_health/orange/0.png',
-        'assets/img/7_statusbars/1_statusbar/2_statusbar_health/orange/20.png',
-        'assets/img/7_statusbars/1_statusbar/2_statusbar_health/orange/40.png',
-        'assets/img/7_statusbars/1_statusbar/2_statusbar_health/orange/60.png',
-        'assets/img/7_statusbars/1_statusbar/2_statusbar_health/orange/80.png',
-        'assets/img/7_statusbars/1_statusbar/2_statusbar_health/orange/100.png'
-    ];
+  static HEALTH_IMAGES = [
+    "assets/img/7_statusbars/1_statusbar/2_statusbar_health/blue/0.png",
+    "assets/img/7_statusbars/1_statusbar/2_statusbar_health/blue/20.png",
+    "assets/img/7_statusbars/1_statusbar/2_statusbar_health/blue/40.png",
+    "assets/img/7_statusbars/1_statusbar/2_statusbar_health/blue/60.png",
+    "assets/img/7_statusbars/1_statusbar/2_statusbar_health/blue/80.png",
+    "assets/img/7_statusbars/1_statusbar/2_statusbar_health/blue/100.png",
+  ];
 
-    IMAGES_BOTTLE = [
-        'assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/green/0.png',
-        'assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/green/20.png',
-        'assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/green/40.png',
-        'assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/green/60.png',
-        'assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/green/80.png',
-        'assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/green/100.png'
-    ];
+  static BOSS_IMAGES = [
+    "assets/img/7_statusbars/2_statusbar_endboss/orange/orange0.png",
+    "assets/img/7_statusbars/2_statusbar_endboss/orange/orange20.png",
+    "assets/img/7_statusbars/2_statusbar_endboss/orange/orange40.png",
+    "assets/img/7_statusbars/2_statusbar_endboss/orange/orange60.png",
+    "assets/img/7_statusbars/2_statusbar_endboss/orange/orange80.png",
+    "assets/img/7_statusbars/2_statusbar_endboss/orange/orange100.png"
+  ];
 
-    IMAGES_COINS = [
-        'assets/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/0.png',
-        'assets/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/20.png',
-        'assets/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/40.png',
-        'assets/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/60.png',
-        'assets/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/80.png',
-        'assets/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/100.png'
-    ];
+  static BOTTLE_IMAGES = [
+    "assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/green/0.png",
+    "assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/green/20.png",
+    "assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/green/40.png",
+    "assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/green/60.png",
+    "assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/green/80.png",
+    "assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/green/100.png",
+  ];
 
-    IMAGES_ENDBOSS = [
-        'assets/img/7_statusbars/2_statusbar_endboss/orange/orange0.png',
-        'assets/img/7_statusbars/2_statusbar_endboss/orange/orange20.png',
-        'assets/img/7_statusbars/2_statusbar_endboss/orange/orange40.png',
-        'assets/img/7_statusbars/2_statusbar_endboss/orange/orange60.png',
-        'assets/img/7_statusbars/2_statusbar_endboss/orange/orange80.png',
-        'assets/img/7_statusbars/2_statusbar_endboss/orange/orange100.png'
-    ];
+  static COINS_IMAGES = [
+    "assets/img/7_statusbars/1_statusbar/1_statusbar_coin/orange/0.png",
+    "assets/img/7_statusbars/1_statusbar/1_statusbar_coin/orange/20.png",
+    "assets/img/7_statusbars/1_statusbar/1_statusbar_coin/orange/40.png",
+    "assets/img/7_statusbars/1_statusbar/1_statusbar_coin/orange/60.png",
+    "assets/img/7_statusbars/1_statusbar/1_statusbar_coin/orange/80.png",
+    "assets/img/7_statusbars/1_statusbar/1_statusbar_coin/orange/100.png"
+  ];
 
-    percentage = 100;
-
-  /**
-   * Creates a new Statusbar instance
-   * @param {string} type - Type of statusbar ("health", "coins", "bottle", "endboss")
-   */
-  constructor(type = "health") {
+  constructor(type, x, y, percentage) {
     super();
-    this.type = type;
-    this.percentage = type === "health" ? 100 : 0;
-    this.x = 25;
-    this.y = 0;
-    this.width = 150;
-    this.height = 50;
-    if (type === "health") {
-      this.loadImage(this.IMAGES_HEALTH[5]);
-      this.loadImages(this.IMAGES_HEALTH);
-    } else if (type === "coins") {
-      this.loadImage(this.IMAGES_COINS[0]);
-      this.loadImages(this.IMAGES_COINS);
-    } else if (type === "bottle") {
-      this.loadImage(this.IMAGES_BOTTLE[0]);
-      this.loadImages(this.IMAGES_BOTTLE);
-    } else if (type === "endboss") {
-      this.percentage = 100;
-      this.width = 230;
-      this.height = 55;
-      this.loadImage(this.IMAGES_ENDBOSS[5]);
-      this.loadImages(this.IMAGES_ENDBOSS);
-    }
+    this.x = x;
+    this.y = y;
+    this.IMAGES = this.getImagesByType(type);
+    this.loadImages(this.IMAGES);
+    this.setPercentage(percentage);
   }
 
-  /**
-   * Sets the percentage and updates the image
-   * @param {number} percentage - Percentage value (0-100)
-   */
+  getImagesByType(type) {
+        if (type === 'health') return StatusBar.HEALTH_IMAGES;
+        if (type === 'coin') return StatusBar.COINS_IMAGES;
+        if (type === 'bottle') return StatusBar.BOTTLE_IMAGES;
+        if (type === 'boss') return StatusBar.BOSS_IMAGES;
+        return [];
+  }
+
   setPercentage(percentage) {
     this.percentage = percentage;
-    if (this.type === "health") {
-      this.img = this.imageCache[this.IMAGES_HEALTH[this.resolveImageIndex()]];
-    } else if (this.type === "coins") {
-      this.img = this.imageCache[this.IMAGES_COINS[this.resolveImageIndex()]];
-    } else if (this.type === "bottle") {
-      this.img = this.imageCache[this.IMAGES_BOTTLE[this.resolveImageIndex()]];
-    } else if (this.type === "endboss") {
-      this.img = this.imageCache[this.IMAGES_ENDBOSS[this.resolveImageIndex()]];
-    }
+    const path = this.IMAGES[this.resolveImageIndex()];
+    this.img = this.imageCache[path];
   }
 
-  /**
-   * Resolves the image index based on percentage and statusbar type
-   * Routes to appropriate index calculation method based on statusbar type
-   * @returns {number} Image index (0-5) corresponding to percentage level
-   */
   resolveImageIndex() {
-    if (this.type === "health" || this.type === "endboss") {
-      return this.resolveHealthOrEndbossIndex();
-    } else {
-      return this.resolveCoinsOrBottlesIndex();
-    }
-  }
-
-  /**
-   * Resolves image index for health or endboss statusbars
-   * @returns {number} Image index
-   */
-  resolveHealthOrEndbossIndex() {
-    if (this.percentage == 100) return 5;
-    if (this.percentage == 80) return 4;
-    if (this.percentage == 60) return 3;
-    if (this.percentage == 40) return 2;
-    if (this.percentage == 20) return 1;
+    if (this.percentage >= 100) return 5;
+    if (this.percentage >= 70) return 4;
+    if (this.percentage >= 50) return 3;
+    if (this.percentage >= 30) return 2;
+    if (this.percentage >= 10) return 1;
     return 0;
   }
-
-  /**
-   * Resolves image index for coins or bottles statusbars
-   * @returns {number} Image index
-   */
-  resolveCoinsOrBottlesIndex() {
-    if (this.percentage == 100) return 5;
-    if (this.percentage == 80) return 4;
-    if (this.percentage == 60) return 3;
-    if (this.percentage == 40) return 2;
-    if (this.percentage == 20) return 1;
-    return 0;
-  }
-
 }
