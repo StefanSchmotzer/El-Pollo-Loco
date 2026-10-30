@@ -1,53 +1,27 @@
-const level1 = new Level([
-    new Chicken(),
-    new Chicken(),
-    new Chicken(),
-    new Chickensmall(),
-    new Chickensmall(),
-    new Chickensmall(),
-    new Chickensmall(),
-    new Chickensmall(),
-    new Chickensmall(),
-    new Chickensmall(),
-    new Endboss()
+let level1;
 
-    ],
-    [
-        new Cloud(),
-        new Cloud(),
-        new Cloud(),
-        new Cloud(),
-        new Cloud(),
-        new Cloud(),
-        new Cloud(),
-        new Cloud(),
-        new Cloud(),
-        new Cloud(),
-        new Cloud(),
-        new Cloud(),
-        new Cloud()
-    ],
-    [
-        new BackgroundObject('assets/img/5_background/layers/air.png', -719),
-        new BackgroundObject('assets/img/5_background/layers/3_third_layer/2.png', -719),
-        new BackgroundObject('assets/img/5_background/layers/2_second_layer/2.png', -719),
-        new BackgroundObject('assets/img/5_background/layers/1_first_layer/2.png', -719),
+function initLevel() {
+  level1 = new Level(
+    createEnemyLevel(12),
+    createCloudLevel(10),
+    createBackgroundLevel(6),
+    createCoinsLevel(6),
+    createBottleLevel(13)
+  );
+}
 
-        new BackgroundObject('assets/img/5_background/layers/air.png', 0),
-        new BackgroundObject('assets/img/5_background/layers/3_third_layer/1.png', 0),
-        new BackgroundObject('assets/img/5_background/layers/2_second_layer/1.png', 0),
-        new BackgroundObject('assets/img/5_background/layers/1_first_layer/1.png', 0),
-        new BackgroundObject('assets/img/5_background/layers/air.png', 719),
-        new BackgroundObject('assets/img/5_background/layers/3_third_layer/2.png', 719),
-        new BackgroundObject('assets/img/5_background/layers/2_second_layer/2.png', 719),
-        new BackgroundObject('assets/img/5_background/layers/1_first_layer/2.png', 719),
-        new BackgroundObject('assets/img/5_background/layers/air.png', 719*2),
-        new BackgroundObject('assets/img/5_background/layers/3_third_layer/1.png', 719*2),
-        new BackgroundObject('assets/img/5_background/layers/2_second_layer/1.png', 719*2),
-        new BackgroundObject('assets/img/5_background/layers/1_first_layer/1.png', 719*2),
-        new BackgroundObject('assets/img/5_background/layers/air.png', 719*3),
-        new BackgroundObject('assets/img/5_background/layers/3_third_layer/2.png', 719*3),
-        new BackgroundObject('assets/img/5_background/layers/2_second_layer/2.png', 719*3),
-        new BackgroundObject('assets/img/5_background/layers/1_first_layer/2.png', 719*3),
-    ]
-);
+function createEnemyLevel(count) {
+  const enemies = [new Boss()];
+  for (let i = 0; i < count; i++) {
+    const x = 800 + (i * 200) + (Math.random() * 200);
+    enemies.push(getRandomEnemy(x));
+  }
+  return enemies;
+}
+
+function getRandomEnemy(x) {
+  if (Math.random() > 0.5) {
+    return new Chicken(x);
+  }
+  return new Chickensmall(x);
+}
