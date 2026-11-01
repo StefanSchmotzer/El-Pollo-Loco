@@ -1,8 +1,10 @@
-class Keyboard {
-    LEFT = false;
-    RIGHT = false;
-    UP = false;
-    DOWN = false;
-    SPACE = false;
-    X = false
+class Keys {
+  LEFT = false;
+  RIGHT = false;
+  THROW_ONCE = false;
+  JUMP_ONCE = false;
+  FULLSCREEN = false;
+  MUSIC = false;
+  PAUSE = false;
+  LYRICS = false;
 }
