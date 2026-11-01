@@ -1,30 +1,34 @@
 class Cloud extends MovableObject {
+  y = Math.random() * 100;
+  height = 180;
+  width = 300;
 
-IMAGES_WALKING = [
-      'assets/img/5_background/layers/4_clouds/1.png'
-   ];
+  constructor(imgPath, x, speedModifier) {
+    super();
+    this.loadImage(imgPath);
+    this.x = x + Math.random() * 500;
+    this.speedModifier = speedModifier || 0.25;
+    this.speed = 0.15 + Math.random() * 0.25;
+    this.animate();
+  }
 
+  animate() {
+    addGameTask(this, () => {
+      this.moveLeft();
+    }, 1000 / 60);
+  }
+}
 
+function createCloudLevel(count) {
+  const clouds = [];
+  for (let i = 0; i < count; i++) {
+    const x = Math.random() * 2500;
+    const speed = 0.2 + Math.random() * 0.6;
+    const imgIndex = (i % 2) + 1;
 
-    constructor() {
-        super().loadImage(this.IMAGES_WALKING[0]);
-        this.loadImages(this.IMAGES_WALKING);
-        this.y = -40 + Math.random() * 60;
-        this.x = 0 + Math.random() * 4000;
-        this.width = 250 + Math.random() * 450;
-        this.height = 150 + Math.random() * 300;
-        this.speed = 0.01 + Math.random() * 0.2;
-        this.animate();
-   }
-
-
-
-    animate() {
-        this.moveLeft();
-        setInterval(() => {
-            this.moveLeft();
-        }, 1000 / 60);
-    }
-
-
+    clouds.push(
+      new Cloud(`assets/img/5_background/layers/4_clouds/${imgIndex}.png`, x, speed)
+    );
+  }
+  return clouds;
 }
