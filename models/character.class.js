@@ -55,14 +55,14 @@ class Character extends MovableObject {
         "assets/img/2_character_pepe/3_jump/J-39.png"
     ];
     IMAGES_DEAD = [
-        "assets/img/2_character_pepe/5_dead/D-51.png",
-        "assets/img/2_character_pepe/5_dead/D-52.png",
         "assets/img/2_character_pepe/5_dead/D-53.png",
+        "assets/img/2_character_pepe/5_dead/D-57.png",
+        "assets/img/2_character_pepe/5_dead/D-54.png",
         "assets/img/2_character_pepe/5_dead/D-54.png",
         "assets/img/2_character_pepe/5_dead/D-55.png",
+        "assets/img/2_character_pepe/5_dead/D-55.png",
         "assets/img/2_character_pepe/5_dead/D-56.png",
-        "assets/img/2_character_pepe/5_dead/D-58.png",
-        'assets/img/2_character_pepe/5_dead/D-58.png'
+        'assets/img/2_character_pepe/5_dead/D-56.png'
     ];
     IMAGES_HURT = [
         "assets/img/2_character_pepe/4_hurt/H-41.png",
@@ -116,11 +116,11 @@ class Character extends MovableObject {
         }
     }
     playDeathAnimation() {
-        this.playAnimation(this.IMAGES_DEAD, 6);
+        this.playAnimation(this.IMAGES_DEAD, 7);
         this.speedY = 0;
         this.acceleration = 0;
         this.deathTimer++;
-        if (this.deathTimer > 20) this.y += 6;
+        if (this.deathTimer > 20) this.y += 7;
     }
     playIdleAnimations() {
         const timer = Date.now() - this.lastKeyPress;
