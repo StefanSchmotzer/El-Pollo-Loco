@@ -1,3 +1,7 @@
+/**
+* Represents a bottle thrown by the character, handling physics and splash.
+* @extends MovableObject
+*/
 class ThrowableObject extends MovableObject {
   height = 80;
   width = 80;
@@ -22,6 +26,12 @@ class ThrowableObject extends MovableObject {
     "assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png",
   ];
 
+  /**
+   * Creates a bottle and starts the throw logic.
+   * @param {number} x - Start X position.
+   * @param {number} y - Start Y position.
+   * @param {boolean} otherDirection - Direction flag.
+   */
   constructor(x, y, otherDirection) {
     super().loadImage(this.IMAGES_BOTTLE[0]);
     this.loadImages(this.IMAGES_BOTTLE);
@@ -41,6 +51,9 @@ class ThrowableObject extends MovableObject {
     };
   }
 
+  /**
+   * Initiates the throw physics and animations.
+   */
   throw() {
     this.speedY = 15;
     if (sounds.THROW) sounds.THROW.play();
@@ -49,6 +62,9 @@ class ThrowableObject extends MovableObject {
     this.startRotation();
   }
 
+  /**
+   * Manages horizontal movement during flight.
+   */
   startFlightMovement() {
     this.accelerationInterval = setInterval(() => {
       this.lastX = this.x;
@@ -57,12 +73,18 @@ class ThrowableObject extends MovableObject {
     }, 15);
   }
 
+  /**
+   * Starts the rotation animation for the flying bottle.
+   */
   startRotation() {
     this.rotationInterval = setInterval(() => {
       this.playAnimation(this.IMAGES_BOTTLE);
     }, 75);
   }
 
+  /**
+   * Triggers the splash sequence and stops flight logic.
+   */
   splash() {
     if (this.hasSplashed) return;
     this.hasSplashed = true;
@@ -70,6 +92,9 @@ class ThrowableObject extends MovableObject {
     this.playSplashSequence();
   }
 
+  /**
+   * Stops sound and flight intervals.
+   */
   stopFlightLogic() {
     if (sounds.SPLASH) sounds.SPLASH.play();
     this.speedY = 0;
@@ -77,6 +102,9 @@ class ThrowableObject extends MovableObject {
     clearInterval(this.rotationInterval);
   }
 
+  /**
+   * Executes the splash animation frames.
+   */
   playSplashSequence() {
     this.loadImage(this.IMAGES_SPLASH[0]);
     this.splashFrameCount = 0;
@@ -86,6 +114,9 @@ class ThrowableObject extends MovableObject {
     }, 50);
   }
 
+  /**
+   * Checks if splash animation is finished and hides object.
+   */
   checkSplashEnd() {
     this.splashFrameCount++;
     if (this.splashFrameCount >= this.IMAGES_SPLASH.length) {
@@ -94,6 +125,11 @@ class ThrowableObject extends MovableObject {
     }
   }
 
+  /**
+ * Swept collision check to prevent tunneling.
+ * @param {MovableObject} enemy
+ * @returns {boolean}
+ */
   isCollidingSwept(enemy) {
     const minX = Math.min(this.lastX, this.x);
     const maxX = Math.max(this.lastX + this.width, this.x + this.width);

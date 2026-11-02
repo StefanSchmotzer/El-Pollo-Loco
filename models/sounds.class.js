@@ -1,3 +1,6 @@
+/**
+ * A wrapper class for the HTML5 Audio API to manage game sounds and music.
+ */
 class Sound {
   constructor(src, volume = 1, loop = false) {
     this.audio = new Audio(src);
@@ -5,11 +8,19 @@ class Sound {
     this.audio.loop = loop;
   }
 
+  /**
+   * Plays the sound ONLY if the global 'music' variable is true.
+   * Accesses the global variable in game.js
+   * */
   play() {
     if (typeof music !== 'undefined' && music && this.audio.paused) {
       this.audio.play().catch((e) => {});
     }
   }
+  
+  /**
+   * Resets the sound and starts playback ONLY if global 'music' is true.
+   */
   playFromStart() {
     this.audio.currentTime = 0;
     if (typeof music !== 'undefined' && music) {
@@ -27,6 +38,9 @@ class Sound {
   }
 }
 
+/**
+ * A central registry in the game for all sounds.
+ */
 class Sounds {
   constructor() {
     this.WALK = new Sound('assets/audio/walk.mp3', 0.6, true);
@@ -45,6 +59,9 @@ class Sounds {
     this.LOSE = new Sound('assets/audio/lose.mp3', 1, false);
   }
 
+  /**
+   * Utility to stop every sound at once.
+   */
   stopAll() {
     Object.keys(this).forEach(key => {
       if (this[key] instanceof Sound) {

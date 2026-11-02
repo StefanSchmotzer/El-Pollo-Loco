@@ -1,3 +1,7 @@
+/**
+ * Represents the final boss enemy with state-driven behavior.
+ * @extends MovableObject
+ */
 
 class Boss extends MovableObject {
   x = 3000;
@@ -49,6 +53,9 @@ class Boss extends MovableObject {
   ];
 
 
+  /**
+   * Initializes boss assets and starts behavior tasks.
+   */
   constructor() {
     super();
     this.loadBossImages();
@@ -57,6 +64,9 @@ class Boss extends MovableObject {
     this.animate();
   }
 
+  /**
+   * Loads all animation sequences for the boss.
+   */
   loadBossImages() {
     this.loadImages(this.IMAGES_BOSS_WALK);
     this.loadImages(this.IMAGES_BOSS_ALERT);
@@ -65,6 +75,9 @@ class Boss extends MovableObject {
     this.loadImages(this.IMAGES_BOSS_DEAD);
   }
 
+  /**
+   * Starts the main animation and behavior loop.
+   */
   animate() {
     addGameTask(this, () => {
       if (this.isDead()) return this.playDeadSequence();
@@ -73,6 +86,9 @@ class Boss extends MovableObject {
     }, 20);
   }
 
+  /**
+   * Orchestrates behavior based on character distance and state.
+   */
   handleNormalBehavior() {
     if (!this.world?.bossFirstContact) return this.playAnimation(this.IMAGES_BOSS_ALERT, 10);
     if (this.isRetreating) return this.executeRetreat();
@@ -85,6 +101,9 @@ class Boss extends MovableObject {
     }
   }
 
+  /**
+   * Processes the walk phase logic and movement.
+   */
   executeWalkPhase() {
     this.updateMode('WALK');
     let dist = this.x - this.world.character.x;
@@ -93,6 +112,9 @@ class Boss extends MovableObject {
     this.playAnimation(this.IMAGES_BOSS_WALK, 10);
   }
 
+  /**
+   * Handles attack movement and collision detection.
+   */
   executeAttackPhase() {
     this.updateMode('ATTACK');
     this.x -= 18;
@@ -103,6 +125,9 @@ class Boss extends MovableObject {
     }
   }
 
+  /**
+   * Handles attack movement and collision detection.
+   */
   executeRetreat() {
     this.updateMode('WALK');
     this.x += 15;
@@ -114,6 +139,10 @@ class Boss extends MovableObject {
     }
   }
 
+  /**
+   * Switches the boss mode and resets animation index.
+   * @param {string} nextMode - The mode to switch to.
+   */
   updateMode(nextMode) {
     if (this.currentMode !== nextMode) {
       this.currentImage = 0;
@@ -121,6 +150,9 @@ class Boss extends MovableObject {
     }
   }
 
+  /**
+   * Handles the death animation and falling sequence.
+   */
   playDeadSequence() {
     sounds.SCARED_BOSS.stop();
     sounds.BOSS_MUSIC.stop();
@@ -133,6 +165,9 @@ class Boss extends MovableObject {
     }
   }
 
+  /**
+   * Cycles through behavior states based on a timer.
+   */
   runStateTimer() {
     this.stateTimer += 20;
     if (this.stateTimer < 1000) {

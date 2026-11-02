@@ -1,13 +1,26 @@
+/**
+ * Handles all collision detection and resulting actions for the game world.
+ */
 class CollisionManager {
+  /**
+   * @param {World} world - Reference to the game world to access entities and state.
+   */
   constructor(world) {
     this.world = world;
   }
+
+  /**
+   * Main entry point to run all collision checks.
+   */
   checkAll() {
     this.checkEnemyCollisions();
     this.checkItemCollisions();
     this.checkProjectileCollisions();
   }
 
+  /**
+   * Checks collisions between the character and all enemies.
+   */
   checkEnemyCollisions() {
     this.world.level.enemies.forEach((enemy) => {
       if (this.world.character.isColliding(enemy)) {
@@ -20,11 +33,17 @@ class CollisionManager {
     });
   }
 
+  /**
+   * Checks for collisions with collectible items (bottles and coins).
+   */
   checkItemCollisions() {
     this.checkCoinCollisions();
     this.checkPickBottle();
   }
 
+  /**
+   * Checks for collisions between thrown projectiles and enemies.
+   */
   checkProjectileCollisions() {
     this.world.throwableObjects.forEach((bottle) => {
       this.world.level.enemies.forEach((enemy) => {
@@ -42,6 +61,10 @@ class CollisionManager {
     });
   }
 
+  /**
+   * Handles character getting hit by the Boss.
+   * @private
+   */
   handleBossCollision() {
     if (!this.world.character.isHurt() && !this.world.character.isDead()) {
       this.world.character.hit();
@@ -49,6 +72,11 @@ class CollisionManager {
     }
   }
 
+  /**
+   * Handles character jumping on or running into standard enemies.
+   * @param {Chicken|Chickensmall} enemy 
+   * @private
+   */
   handleChickenCollision(enemy) {
     const char = this.world.character;
     if (char.isAboveGround() && char.speedY <= 0 && !enemy.isDead) {
@@ -61,6 +89,11 @@ class CollisionManager {
     }
   }
 
+  /**
+   * Finalizes an enemy kill, plays sounds and removes it from the world.
+   * @param {MovableObject} enemy 
+   * @param {boolean} shouldJump - If true, the character bounces off.
+   */
   executeEnemyKill(enemy, shouldJump) {
     enemy.isDead = true;
     if (shouldJump) {
@@ -81,6 +114,10 @@ class CollisionManager {
     }, 500);
   }
 
+  /**
+   * Checks for coin collection.
+   * @private
+   */
   checkCoinCollisions() {
     this.world.level.coins.forEach((coin, index) => {
       if (this.world.character.isColliding(coin)) {
@@ -92,6 +129,10 @@ class CollisionManager {
     });
   }
 
+  /**
+   * Checks for bottle pickup.
+   * @private
+   */
   checkPickBottle() {
     this.world.level.bottles.forEach((bottle, index) => {
       if (this.world.character.isColliding(bottle)) {

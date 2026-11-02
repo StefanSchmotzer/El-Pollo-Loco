@@ -1,0 +1,78 @@
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Abril Fatface';
+  font-style: normal;
+  font-weight: 400;
+  src: url('assets/fonts/abril-fatface-v25-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+.impressum.hidden {
+  display: none;
+}
+
+.impressum {
+  font-family: "Abril Fatface", 'Courier New', Courier, monospace;
+  font-size: 16px;
+  color: black;
+  background-image: radial-gradient(circle at bottom, white 0%, yellow 30%, rgb(255, 94, 0) 50%, purple 70%, black 99%);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 80px;
+  padding-bottom: 10px;
+  overflow: auto;
+  scroll-padding: 10px;
+  border-radius: 8px;
+  clip-path: inset(0 round 8px);
+}
+
+.impressum a {
+  font-size: 16px;
+  text-decoration: none;
+  color: #ae4a26;
+}
+
+.impressum a:hover {
+  text-decoration: underline;
+}
+
+.impressum-box {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.impressum-box a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.impressum-box a:hover {
+  filter: drop-shadow(1px -1px 3px rgb(214, 214, 214));
+}
+
+.impressum-box img {
+  height: 42px;
+  width: 42px;
+}
+
+.impressum-link {
+  position: absolute;
+  bottom: 10px;
+  text-decoration: none;
+  font-size: 1.2em;
+  cursor: pointer;
+  color: #ffffff;
+  transition: 250ms ease-in-out;
+  text-shadow: 0 5px 5px #532800;
+}
+
+.impressum-link:hover {
+  font-size: 1.3em;
+}

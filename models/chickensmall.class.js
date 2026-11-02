@@ -1,4 +1,7 @@
-
+/**
+ * Represents a small chicken (chicks = Chickensmall) enemy that can occasionally jump.
+ * @extends MovableObject
+ */
 class Chickensmall extends MovableObject {
   width = 40;
   height = 40;
@@ -10,6 +13,10 @@ class Chickensmall extends MovableObject {
   ];
   IMAGE_DEAD = 'assets/img/3_enemies_chicken/chicken_small/2_dead/dead.png';
 
+  /**
+   * Creates an instance of Chicks.
+   * @param {number} x - The initial horizontal position.
+   */
   constructor(x) {
     super().loadImage(this.IMAGES_WALKING[0]);
     this.loadImages(this.IMAGES_WALKING);
@@ -21,21 +28,30 @@ class Chickensmall extends MovableObject {
     this.applyGravity();
   }
 
+  /**
+   * Initializes behavior loops: movement, jumping, and animations.
+   */
   animate() {
     addGameTask(this, () => this.handleMovement(), 1000 / 60);
     addGameTask(this, () => this.handleJumpLogic(), 1000);
     addGameTask(this, () => this.handleVisuals(), 120);
   }
 
+  /**
+   * Manages horizontal movement and respawning logic.
+   */
   handleMovement() {
     if (!this.isDead) {
       this.moveLeft();
       if (this.x < -200) {
-        this.x = 2900 + Math.random() * 100;
+        this.x = 3000 + Math.random() * 100;
       }
     }
   }
 
+  /**
+   * Handles random jumping behavior if on the ground.
+   */
   handleJumpLogic() {
     if (!this.isDead && !this.isAboveGround()) {
       if (Math.random() > 0.7) {
@@ -44,6 +60,9 @@ class Chickensmall extends MovableObject {
     }
   }
 
+  /**
+   * Manages the switching between walking and dead images.
+   */
   handleVisuals() {
     if (this.isDead) {
       this.loadImage(this.IMAGE_DEAD);
