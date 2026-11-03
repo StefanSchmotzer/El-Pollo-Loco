@@ -103,6 +103,7 @@ canvas {
     width: 100%;
     height: auto;
     display: block;
+    border: 8px;
     border-radius: 8px;
     background-color: black;
     box-shadow: 1px 1px 16px rgb(0, 0, 0);
@@ -171,7 +172,7 @@ canvas {
     .start-screen,
     .lyrics,
     .game {
-        height: 100vh;
+        height: 100dvh;
         width: auto;
         aspect-ratio: 854 / 377;
     }
@@ -183,7 +184,7 @@ canvas {
     .start-screen,
     .lyrics,
     .game {
-        width: 100vw;
+        width: 100dvw;
     }
 }
 
@@ -193,13 +194,16 @@ canvas {
     }
 }
 
+
 .rotate-screen {
     display: none;
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
+    right: 0;
+    bottom: 0;
+    min-width: 100dvw;
+    min-height: 100dvh;
     background-color: rgba(0, 0, 0, 0.9);
     z-index: 10;
 }
@@ -212,14 +216,16 @@ canvas {
     width: 100%;
     height: 100%;
     text-align: center;
+    font-size: larger;
 }
 
 .rotate-content img {
     width: 120px;
     height: auto;
-    margin-bottom: 20px;
+    margin-bottom: 0px;
     animation: rotateHint 2s ease-in-out infinite;
 }
+
 
 @keyframes rotateHint {
     0% {
@@ -227,7 +233,7 @@ canvas {
     }
 
     50% {
-        transform: rotate(-90deg);
+        transform: rotate(90deg);
     }
 
     100% {
@@ -237,18 +243,18 @@ canvas {
 
 @media (orientation: portrait) {
     #rotateScreen {
-        display: flex ;
+        display: flex;
         color: rgb(164, 228, 253);
     }
 
     .menu,
     .action-buttons {
-        display: none ;
+        display: none;
     }
 }
 
 .d-none {
-    display: none ;
+    display: none;
 }
 
 .menu {

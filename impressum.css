@@ -28,6 +28,7 @@
   scroll-padding: 10px;
   border-radius: 8px;
   clip-path: inset(0 round 8px);
+  z-index: 99;
 }
 
 .impressum a {
@@ -75,4 +76,25 @@
 
 .impressum-link:hover {
   font-size: 1.3em;
+}
+
+.back {
+  position: absolute;
+  left: 50%;
+  bottom: 5px;
+  transform: translateX(-50%);
+  padding: 2px 24px;
+  border: 4px;
+  border-radius: 9px;
+  border-color: rgb(159, 159, 182);
+  border-style: groove;
+  background: rgba(24, 233, 5, 0.753);
+  color: rgb(5, 5, 5);
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+.back:hover {
+  box-shadow: 0 0 12px rgba(255, 0, 0, 0.8),
+              0 0 24px rgba(1, 0, 3, 0.5);
+  transform: translateX(-50%) scale(1.1);
 }
