@@ -247,6 +247,13 @@ function resetGameState() {
   gameTasks = [];
 }
 
+/** 
+ * go back to index.html
+*/
+function goHome() {
+  window.location.reload();
+}
+
 /**
  * Displays the lyrics overlay.
  */
