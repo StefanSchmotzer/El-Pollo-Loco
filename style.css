@@ -1,15 +1,341 @@
+@font-face {
+    font-family: 'sombrero';
+    src: url('assets/fonts/sombreroLight.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'eastwood';
+    src: url('assets/fonts/eastwood.ttf') format('truetype');
+}
+
 body {
+    font-family: 'eastwood', Arial, Helvetica, sans-serif;
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: black;
-    background-image: url('assets/img/5_background/pollo-loco-bg.jpeg');
-    background-size: cover;
-    padding-top: 220;
+    justify-content: center;
+    height: 100vh;
+    background-image: url('assets/img/5_background/mexican-canyon-sunset.webp');
     background-position: center;
-    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    color: rgb(164, 228, 253);
+    font-size: clamp(10px, 2vw, 16px);
+    letter-spacing: 1px;
+}
+
+h1 {
+    font-family: 'sombrero', Arial, Helvetica, sans-serif;
+    text-align: center;
+    font-size: 5rem;
+    letter-spacing: 32px;
+    color: rgb(6, 42, 66);
+    text-shadow: 0 0 5px rgb(0, 255, 0);
+}
+
+.game {
+    position: relative;
+    max-width: 854px;
+    width: 100%;
+    border-radius: 8px;
+    display: flex;
+    box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.5);
+    outline: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.start-screen,
+.lyrics {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 480px;
+    width: 854px;
+    display: flex;
+    justify-content: center;
+}
+
+.lyrics {
+    box-sizing: border-box;
+    background-color: rgb(53, 16, 4);
+    color: #ffa42f;
+    padding: 80px;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    font-family: eastwood;
+}
+
+table {
+    width: 60%;
+    padding-top: 20px;
+}
+
+th {
+    font-size: 1.5em;
+}
+
+.impressum {
+    font-size: 1em;
+}
+
+.win-screen,
+.lose-screen {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 70%;
+    width: 85%;
+}
+
+.start-screen img,
+.win-screen img,
+.lose-screen img {
+    width: 100%;
+    height: 100%;
+    vertical-align: middle;
+    border-radius: 8px;
 }
 
 canvas {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
     background-color: black;
+    box-shadow: 1px 1px 16px rgb(0, 0, 0);
+    image-rendering: optimizeSpeed;
+    /* Ältere Browser */
+    image-rendering: -moz-crisp-edges;
+    /* Firefox */
+    image-rendering: -webkit-optimize-contrast;
+    /* Safari / Chrome */
+    image-rendering: pixelated;
+    /* Moderne Browser */
+    -ms-interpolation-mode: nearest-neighbor;
+    /* IE */
+}
+
+.play-buttons {
+    position: absolute;
+    width: 100%;
+    box-sizing: border-box;
+    display: none;
+    justify-content: space-between;
+    left: 0;
+    right: 0;
+    padding: 10px 25px;
+    bottom: 0;
+}
+
+.play-buttons img {
+    width: 50px;
+    height: 50px;
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
+}
+
+.action-buttons {
+    display: flex;
+    gap: 30px;
+}
+
+@media (pointer: coarse) {
+    .play-buttons {
+        display: flex;
+    }
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .mobile-controls {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 854px) {
+
+    canvas,
+    .start-screen,
+    .lyrics,
+    .game {
+        width: 100vw;
+        height: auto;
+        aspect-ratio: 854 / 377;
+    }
+}
+
+@media only screen and (max-height: 480px) {
+
+    canvas,
+    .start-screen,
+    .lyrics,
+    .game {
+        height: 100vh;
+        width: auto;
+        aspect-ratio: 854 / 377;
+    }
+}
+
+@media (max-height: 320px) and (max-width: 480px) {
+
+    canvas,
+    .start-screen,
+    .lyrics,
+    .game {
+        width: 100vw;
+    }
+}
+
+@media (max-height: 670px) {
+    h1 {
+        display: none;
+    }
+}
+
+.rotate-screen {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 10;
+}
+
+.rotate-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.rotate-content img {
+    width: 120px;
+    height: auto;
+    margin-bottom: 20px;
+    animation: rotateHint 2s ease-in-out infinite;
+}
+
+@keyframes rotateHint {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    50% {
+        transform: rotate(-90deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+@media (orientation: portrait) {
+    #rotateScreen {
+        display: flex ;
+        color: rgb(164, 228, 253);
+    }
+
+    .menu,
+    .action-buttons {
+        display: none ;
+    }
+}
+
+.d-none {
+    display: none ;
+}
+
+.menu {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    width: 400px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.menu img {
+    width: 40px;
+    height: 40px;
+}
+
+.button-item,
+.button-item:active {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    width: 100px;
+    filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.5));
+}
+
+.button-item.opacity-low {
+    opacity: 0.5;
+}
+
+.button-item:hover {
+    filter: drop-shadow(0 2px 3px rgba(100, 100, 100, 0.5));
+}
+
+.music-off {
+    content: url(./assets/icons/mute.png);
+}
+
+.music-on {
+    content: url(./assets/icons/high-volume.png);
+}
+
+.game:fullscreen {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+}
+
+.game:fullscreen canvas,
+.game:fullscreen .start-screen,
+.game:fullscreen .lyrics {
+    width: 100vw;
+    height: 100vh;
+    object-fit: contain;
+    max-width: none;
+    max-height: none;
+    border-radius: 0;
+}
+
+.game:fullscreen .menu {
+    position: absolute;
+    z-index: 100;
+    top: 5%;
+}
+
+@media (max-width: 854px) and (max-height: 377px) {
+    .start-screen img {
+        border-radius: 0;
+    }
+}
+
+@media (max-width: 854px) or (max-height: 377px) {
+    .play-buttons img {
+        width: 3em;
+        height: 3em;
+    }
+}
+
+#btnPause {
+    content: url(./assets/icons/pause.png);
+}
+
+#btnPause.gamePaused {
+    content: url(./assets/icons/play.png);
 }
